@@ -1,8 +1,9 @@
-public class Entity {
+public abstract class Entity {
 	protected int row;
 	protected int col;
 	
 	protected Grid grid;
+	protected Tile.State myState;
 	
 	public Entity(Grid grid, int row, int col)
 	{
@@ -11,10 +12,15 @@ public class Entity {
 		teleportToTile(row, col);
 	}
 	
-	public void move()
+	public void move(int rows, int cols)
 	{
-		// override
+		teleportToTile(row + rows, col + cols);
 	}
+	
+	public abstract void doTurn();
+	
+	/** What should be done when we hit a wall? */
+	public abstract void handleWall();
 	
 	public void teleportToTile(int row, int col)
 	{
@@ -40,12 +46,12 @@ public class Entity {
 			this.col = tempCol;
 			
 			System.out.println("You can't move out of bounds.");
-			move();
+			handleWall();
 		}
 		catch (SolidTileException s)
 		{
 			System.out.println("You can't move onto solid tiles!");
-			move();
+			handleWall();
 			
 		}
 	}
