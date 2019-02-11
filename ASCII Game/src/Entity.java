@@ -1,28 +1,19 @@
-
 public class Entity {
-	private int row;
-	private int col;
+	protected int row;
+	protected int col;
 	
-	private Grid grid;
+	protected Grid grid;
 	
-	public Player(Grid grid, int row, int col)
+	public Entity(Grid grid, int row, int col)
 	{
 		this.grid = grid;
-		grid.getTile(row, col).setState(Tile.State.EMPTY); // clear space for player
+		grid.getTile(row, col).setState(Tile.State.EMPTY); // clear space for entity
 		teleportToTile(row, col);
 	}
 	
 	public void move()
 	{
-		grid.draw();
-		String input = getInput();
-
-		if (input.equals("w")) teleportToTile(row - 1, col);
-		if (input.equals("s")) teleportToTile(row + 1, col);
-		if (input.equals("d")) teleportToTile(row, col + 1);
-		if (input.equals("a")) teleportToTile(row, col - 1);
-	
-		
+		// override
 	}
 	
 	public void teleportToTile(int row, int col)
@@ -49,8 +40,6 @@ public class Entity {
 			this.col = tempCol;
 			
 			System.out.println("You can't move out of bounds.");
-			grid.draw();
-			System.out.println("Enter new move: ");
 			move();
 		}
 		catch (SolidTileException s)
@@ -60,16 +49,5 @@ public class Entity {
 			
 		}
 	}
-	
-	public String getInput()
-	{
-		String input = Game.scanner.next();
-		
-		if (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d")) return input;
-		System.out.println("Invalid input.");
-		return getInput();
-	}
-	
-}
 
 }
