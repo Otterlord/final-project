@@ -37,9 +37,8 @@ public class Grid {
 		{
 			for (int j = 0; j < width; j++) // loop through columns
 			{
-				int rand = 1 + (int)(Math.random() * ((7) + 1));
-				System.out.println(rand);
-				if (rand > Tile.State.values().length - 1) rand = 2; // make blank tiles more likely
+				int rand = random.nextInt(2);
+				rand += 2;
 				grid[i][j] = new Tile(i, j, Tile.State.values()[rand]);
 			}
 		}

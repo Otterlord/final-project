@@ -45,12 +45,10 @@ public abstract class Entity {
 			this.row = tempRow;
 			this.col = tempCol;
 			
-			System.out.println("You can't move out of bounds.");
 			handleWall();
 		}
 		catch (SolidTileException s)
 		{
-			System.out.println("You can't move onto solid tiles!");
 			handleWall();
 			
 		}

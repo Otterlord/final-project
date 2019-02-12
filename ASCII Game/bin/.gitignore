@@ -1,3 +1,4 @@
+/Enemy.class
 /Entity.class
 /Game.class
 /Grid.class
@@ -5,4 +6,3 @@
 /SolidTileException.class
 /Tile$State.class
 /Tile.class
-/Enemy.class
