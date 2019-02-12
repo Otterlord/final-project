@@ -5,6 +5,7 @@ public class Enemy extends Entity {
 
 	public Enemy(Grid grid, int row, int col) {
 		super(grid, row, col, Tile.State.ENEMY);
+		moveDir = new Vector2(1, 0);
 	}
 
 	@Override
