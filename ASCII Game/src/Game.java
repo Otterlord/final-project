@@ -21,12 +21,12 @@ public class Game {
 		Grid grid = new Grid(8, 8);
 		grid.randomize();
 		Player player = new Player(grid, 3, 3);
-		//Enemy enemy = new Enemy(grid, 2, 2);
+		Enemy enemy = new Enemy(grid, 2, 2);
 		
 		while (!cleared && !dead)
 		{
 			player.doTurn();
-			//enemy.doTurn();
+			enemy.doTurn();
 			
 		}
 	}

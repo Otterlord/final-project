@@ -2,8 +2,7 @@ public class Player extends Entity	{
 	
 	public Player(Grid grid, int row, int col)
 	{
-		super(grid, row, col);
-		myState = Tile.State.PLAYER;
+		super(grid, row, col, Tile.State.PLAYER);
 	}
 	
 	@Override
@@ -31,6 +30,7 @@ public class Player extends Entity	{
 
 	@Override
 	public void handleWall() {
+		System.out.println("You can't go through walls or out of bounds!");
 		doTurn();
 		
 	}

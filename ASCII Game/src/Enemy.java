@@ -1,21 +1,20 @@
 
 public class Enemy extends Entity {
 	
+	private Vector2 moveDir;
 
 	public Enemy(Grid grid, int row, int col) {
-		super(grid, row, col);
-		
-		myState = Tile.State.ENEMY;
+		super(grid, row, col, Tile.State.ENEMY);
 	}
 
 	@Override
 	public void doTurn() {
-		move(-1, 0);
+		move(-moveDir.y, moveDir.x);
 	}
 
 	@Override
 	public void handleWall() {
-		// TODO Auto-generated method stub
+		moveDir = new Vector2(-moveDir.x, -moveDir.y);
 		
 	}
 

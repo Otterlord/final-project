@@ -3,10 +3,11 @@ public abstract class Entity {
 	protected int col;
 	
 	protected Grid grid;
-	protected Tile.State myState;
+	private Tile.State myState;
 	
-	public Entity(Grid grid, int row, int col)
+	public Entity(Grid grid, int row, int col, Tile.State state)
 	{
+		this.myState = state;
 		this.grid = grid;
 		grid.getTile(row, col).setState(Tile.State.EMPTY); // clear space for entity
 		teleportToTile(row, col);
@@ -35,13 +36,13 @@ public abstract class Entity {
 			grid.getTile(this.row, this.col).setState(Tile.State.EMPTY);
 			this.row = row;
 			this.col = col;
-			grid.getTile(row, col).setState(Tile.State.PLAYER);
+			grid.getTile(row, col).setState(myState);
 		
 		}
 		catch(ArrayIndexOutOfBoundsException e)
 		{
 			// undo movements
-			grid.getTile(tempRow, tempCol).setState(Tile.State.PLAYER);
+			grid.getTile(tempRow, tempCol).setState(myState);
 			this.row = tempRow;
 			this.col = tempCol;
 			
