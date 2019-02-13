@@ -16,6 +16,8 @@ public class Enemy extends Entity {
 	@Override
 	public void handleWall() {
 		moveDir = new Vector2(-moveDir.x, -moveDir.y);
+		System.out.println("new movedir" + moveDir);
+		doTurn();
 		
 	}
 
