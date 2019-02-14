@@ -12,5 +12,15 @@ public class Vector2 {
 	{
 		return "(" + x + ", " + y + ")";
 	}
+	
+	public Vector2 add(Vector2 what)
+	{
+		return new Vector2(this.x + what.x, this.y + what.y);
+	}
+	
+	public Vector2 reversed()
+	{
+		return new Vector2(this.x * -1, this.y * -1);
+	}
 
 }

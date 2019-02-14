@@ -10,19 +10,23 @@ public class Enemy extends Entity {
 
 	@Override
 	public void doTurn() {
-		move(-moveDir.y, moveDir.x);
+		move(moveDir.y, moveDir.x);
 	}
 
 	@Override
-	public void handleWall() {
-		moveDir = new Vector2(-moveDir.x, -moveDir.y);
+	public void handleWall(Vector2 wallDir) {
+		moveDir = new Vector2(wallDir.x, wallDir.y);
+		System.out.println("wallDir" + wallDir);
 		System.out.println("new movedir" + moveDir);
+		if (surrounded(moveDir) && surrounded(new Vector2(moveDir.y, moveDir.x))) return;
+		else if (surrounded(moveDir)) moveDir = new Vector2(moveDir.y, moveDir.x);
 		doTurn();
 		
 	}
 
-	
-	
-	
+	// Returns true if both sides are blocked
+	private boolean surrounded(Vector2 dir) {
+		return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir)).isSolid());
+	}
 
 }

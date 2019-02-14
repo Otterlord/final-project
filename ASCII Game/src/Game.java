@@ -25,8 +25,8 @@ public class Game {
 		
 		while (!cleared && !dead)
 		{
-			player.doTurn();
 			enemy.doTurn();
+			player.doTurn();
 			
 		}
 	}

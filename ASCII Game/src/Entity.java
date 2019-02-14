@@ -1,6 +1,5 @@
 public abstract class Entity {
-	protected int row;
-	protected int col;
+	protected Vector2 coords;
 	
 	protected Grid grid;
 	private Tile.State myState;
@@ -9,33 +8,41 @@ public abstract class Entity {
 	{
 		this.myState = state;
 		this.grid = grid;
+		coords = new Vector2(col, row);
 		grid.getTile(row, col).setState(Tile.State.EMPTY); // clear space for entity
 		teleportToTile(row, col);
 	}
 	
 	public void move(int rows, int cols)
 	{
-		teleportToTile(row + rows, col + cols);
+		teleportToTile(coords.y + rows, coords.x + cols);
 	}
 	
 	public abstract void doTurn();
 	
 	/** What should be done when we hit a wall? */
-	public abstract void handleWall();
+	public abstract void handleWall(Vector2 dir);
 	
+	// Vector2 wrapper
+	public void teleportToTile(Vector2 coords)
+	{
+		teleportToTile(coords.y, coords.x);
+	}
+	
+	// Does what its name says ;)
 	public void teleportToTile(int row, int col)
 	{
 		// in case we need to revert
-		int tempRow = this.row;
-		int tempCol = this.col;
+		int tempRow = this.coords.y;
+		int tempCol = this.coords.x;
 		
 		try
 		{
 			if (grid.getTile(row, col).isSolid()) throw new SolidTileException(); // you can't move onto solid tiles
 			
-			grid.getTile(this.row, this.col).setState(Tile.State.EMPTY);
-			this.row = row;
-			this.col = col;
+			grid.getTile(this.coords.y, this.coords.x).setState(Tile.State.EMPTY);
+			this.coords.y = row;
+			this.coords.x = col;
 			grid.getTile(row, col).setState(myState);
 		
 		}
@@ -43,16 +50,27 @@ public abstract class Entity {
 		{
 			// undo movements
 			grid.getTile(tempRow, tempCol).setState(myState);
-			this.row = tempRow;
-			this.col = tempCol;
+			this.coords.y = tempRow;
+			this.coords.x = tempCol;
 			
-			handleWall();
+			Vector2 dir = getHitDirection(new Vector2(col, row));
+			
+			handleWall(dir);
+			
 		}
 		catch (SolidTileException s)
 		{
-			handleWall();
+			Vector2 dir = getHitDirection(new Vector2(col, row));
+			
+			handleWall(dir);
 			
 		}
+	}
+	
+	// Returns the direction of the wall relative to current position
+	private Vector2 getHitDirection(Vector2 wallCoords)
+	{
+		return new Vector2(coords.x - wallCoords.x, coords.y - wallCoords.y);
 	}
 
 }

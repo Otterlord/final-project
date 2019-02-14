@@ -50,6 +50,11 @@ public class Grid {
 		return grid[row][col];
 	}
 	
+	public Tile getTile(Vector2 pos)
+	{
+		return getTile(pos.y, pos.x);
+	}
+	
 	public void draw()
 	{
 		for (int i = 0; i < height; i++) // loop through rows

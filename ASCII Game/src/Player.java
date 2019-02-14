@@ -29,7 +29,7 @@ public class Player extends Entity	{
 	}
 
 	@Override
-	public void handleWall() {
+	public void handleWall(Vector2 dir) {
 		System.out.println("You can't go through walls or out of bounds!");
 		doTurn();
 		

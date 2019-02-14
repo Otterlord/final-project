@@ -31,7 +31,7 @@ public class Tile {
 	public String toString()
 	{
 		if (state == state.PLAYER) return "Ü";
-		else if (state == state.ENEMY) return "X";
+		else if (state == state.ENEMY) return "O";
 		else if (state == state.EMPTY) return "-";
 		else if (state == state.WALL) return "W";
 		else return "Invalid state";
