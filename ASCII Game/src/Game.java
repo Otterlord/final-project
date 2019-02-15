@@ -22,10 +22,12 @@ public class Game {
 		grid.randomize();
 		Player player = new Player(grid, 3, 3);
 		Enemy enemy = new Enemy(grid, 2, 2);
+		Enemy sec = new Enemy(grid, 2, 3);
 		
 		while (!cleared && !dead)
 		{
 			enemy.doTurn();
+			sec.doTurn();
 			player.doTurn();
 			
 		}
