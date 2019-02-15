@@ -16,8 +16,8 @@ public class Enemy extends Entity {
 	@Override
 	public void handleWall(Vector2 wallDir) {
 		moveDir = new Vector2(wallDir.x, wallDir.y);
-		System.out.println("wallDir" + wallDir);
-		System.out.println("new movedir" + moveDir);
+		//System.out.println("wallDir" + wallDir);
+		//System.out.println("new movedir" + moveDir);
 		if (surrounded(moveDir) && surrounded(new Vector2(moveDir.y, moveDir.x))) return;
 		else if (surrounded(moveDir)) moveDir = new Vector2(moveDir.y, moveDir.x);
 		doTurn();
