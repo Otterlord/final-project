@@ -67,6 +67,19 @@ public abstract class Entity {
 		}
 	}
 	
+	// Returns true if both sides are blocked
+	protected boolean surrounded(Vector2 dir) 
+	{
+		try
+		{
+			return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir.reversed())).isSolid()); // return true if both sides are solid
+		}
+		catch (ArrayIndexOutOfBoundsException a) // if out of bounds, then we are definitely surrounded
+		{
+			return true;
+		}
+	}
+	
 	// Returns the direction of the wall relative to current position
 	private Vector2 getHitDirection(Vector2 wallCoords)
 	{

@@ -9,6 +9,13 @@ public class Player extends Entity	{
 	public void doTurn()
 	{
 		grid.draw();
+		
+		if (surrounded(Vector2.right) && surrounded(Vector2.up)) 
+		{
+			Game.playerDead = true;
+			return;
+		}
+		
 		String input = getInput();
 
 		if (input.equals("w")) move(-1, 0);

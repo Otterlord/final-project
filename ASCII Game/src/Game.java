@@ -1,22 +1,26 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 	public static Scanner scanner;
+	public static Random random;
+	
+	public static boolean playerDead = false;
 	
 	public static void main(String[] args)
 	{
+		
 		init();
 		printIntro();
 		
 		gameLoop();
+		System.out.println("Player surrounded!!!");
 	}
-	
+
 	// Main game loop
 	private static void gameLoop()
 	{
 		// Initialize stuff
-		boolean cleared = false;
-		boolean dead = false;
 		
 		Grid grid = new Grid(8, 8);
 		grid.randomize();
@@ -24,9 +28,10 @@ public class Game {
 		Enemy enemy = new Enemy(grid, 2, 2);
 		Enemy sec = new Enemy(grid, 2, 3);
 		
-		while (!cleared && !dead)
+		while (!playerDead)
 		{
 			player.doTurn();
+			if (playerDead) return; // if player dies after their turn, quit
 			enemy.doTurn();
 			sec.doTurn();
 			//player.doTurn();
@@ -37,6 +42,7 @@ public class Game {
 	private static void init()
 	{
 		scanner = new Scanner(System.in);
+		random = new Random();
 	}
 	
 	private static void printIntro()

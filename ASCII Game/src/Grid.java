@@ -6,13 +6,10 @@ public class Grid {
 	
 	private Tile[][] grid;
 	
-	private Random random;
-	
 	public Grid(int width, int height)
 	{
 		this.width = width;
 		this.height = height;
-		this.random = new Random();
 		
 		// initialize grid
 		initGrid();
@@ -37,7 +34,7 @@ public class Grid {
 		{
 			for (int j = 0; j < width; j++) // loop through columns
 			{
-				int rand = random.nextInt(2);
+				int rand = Game.random.nextInt(2);
 				rand += 2;
 				grid[i][j] = new Tile(i, j, Tile.State.values()[rand]);
 			}

@@ -5,11 +5,15 @@ public class Enemy extends Entity {
 
 	public Enemy(Grid grid, int row, int col) {
 		super(grid, row, col, Tile.State.ENEMY);
-		moveDir = new Vector2(1, 0);
+		moveDir = new Vector2(0, 0);
 	}
 
 	@Override
 	public void doTurn() {
+		moveDir.x = Game.random.nextInt(3) - 1;
+		System.out.println("Rolled " + moveDir.x);
+		if (moveDir.x == 0) moveDir.y = Game.random.nextInt(3) - 1;
+		else moveDir.y = 0;
 		move(moveDir.y, moveDir.x);
 	}
 
@@ -22,18 +26,6 @@ public class Enemy extends Entity {
 		else if (surrounded(moveDir)) moveDir = new Vector2(moveDir.y, moveDir.x);
 		doTurn();
 		
-	}
-
-	// Returns true if both sides are blocked
-	private boolean surrounded(Vector2 dir) {
-		try
-		{
-			return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir.reversed())).isSolid()); // return true if both sides are solid
-		}
-		catch (ArrayIndexOutOfBoundsException a) // if out of bounds, then we are definitely surrounded
-		{
-			return true;
-		}
 	}
 
 }
