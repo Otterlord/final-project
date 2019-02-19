@@ -26,7 +26,14 @@ public class Enemy extends Entity {
 
 	// Returns true if both sides are blocked
 	private boolean surrounded(Vector2 dir) {
-		return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir.reversed())).isSolid()); // return true if both sides are solid
+		try
+		{
+			return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir.reversed())).isSolid()); // return true if both sides are solid
+		}
+		catch (ArrayIndexOutOfBoundsException a) // if out of bounds, then we are definitely surrounded
+		{
+			return true;
+		}
 	}
 
 }
