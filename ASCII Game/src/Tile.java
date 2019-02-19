@@ -5,7 +5,7 @@ public class Tile {
 	private State state;
 	
 	public static enum State {
-		PLAYER, ENEMY, EMPTY, WALL
+		PLAYER, ENEMY, EMPTY, WALL, BOMB
 	}
 
 	
@@ -34,6 +34,7 @@ public class Tile {
 		else if (state == state.ENEMY) return "O";
 		else if (state == state.EMPTY) return "-";
 		else if (state == state.WALL) return "W";
+		else if (state == state.BOMB) return "B";
 		else return "Invalid state";
 	}
 }

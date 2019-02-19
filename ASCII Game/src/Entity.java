@@ -85,5 +85,10 @@ public abstract class Entity {
 	{
 		return new Vector2(coords.x - wallCoords.x, coords.y - wallCoords.y);
 	}
+	
+	protected void destroy()
+	{
+		
+	}
 
 }

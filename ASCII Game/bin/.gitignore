@@ -7,3 +7,5 @@
 /Tile$State.class
 /Tile.class
 /Vector2.class
+/Bomb.class
+/TileObject.class

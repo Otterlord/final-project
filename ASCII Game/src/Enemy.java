@@ -5,15 +5,11 @@ public class Enemy extends Entity {
 
 	public Enemy(Grid grid, int row, int col) {
 		super(grid, row, col, Tile.State.ENEMY);
-		moveDir = new Vector2(0, 0);
+		moveDir = new Vector2(0, 1);
 	}
 
 	@Override
 	public void doTurn() {
-		moveDir.x = Game.random.nextInt(3) - 1;
-		System.out.println("Rolled " + moveDir.x);
-		if (moveDir.x == 0) moveDir.y = Game.random.nextInt(3) - 1;
-		else moveDir.y = 0;
 		move(moveDir.y, moveDir.x);
 	}
 
