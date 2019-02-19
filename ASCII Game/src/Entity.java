@@ -88,8 +88,9 @@ public abstract class Entity {
 	
 	protected void destroy()
 	{
-		System.out.println("Destroying object");
+		System.out.println("Destroying object finish writing htis mehthods");
 		grid.getTile(coords).setState(Tile.State.EMPTY); // remove graphical representation of object
+		// remove object from
 		
 	}
 
