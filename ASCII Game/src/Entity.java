@@ -105,12 +105,11 @@ public abstract class Entity implements Comparable<Entity> {
 		return new Vector2(coords.x - wallCoords.x, coords.y - wallCoords.y);
 	}
 	
+	// Destroy this entity
 	protected void destroy()
 	{
-		System.out.println("Destroying object finish writing htis mehthods");
-		grid.getTile(coords).setState(Tile.State.EMPTY); // remove graphical representation of object
-		// remove object from list
-		
+		System.out.println("Object destroyed");
+		Game.destroyEntity(this);
 	}
 
 }

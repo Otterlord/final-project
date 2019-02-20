@@ -10,6 +10,8 @@ public class Game {
 	public static boolean playerDead = false;
 	public static ArrayList<Entity> entities; // holds all the entities other than the player
 	
+	private static Grid grid;
+	
 	public static void main(String[] args)
 	{
 		init();
@@ -24,16 +26,15 @@ public class Game {
 	{
 		// Initialize stuff
 		
-		Grid grid = new Grid(8, 8);
+		grid = new Grid(8, 8);
 		grid.randomize();
 		entities.add(new Player(grid, 3, 3));
 		entities.add(new Enemy(grid, 2, 2));
 		
+		sortEntities();
 		
 		while (!playerDead)
 		{
-			
-			Collections.sort(entities); // sort based on speed
 			for (Entity e : entities)
 			{
 				System.out.println(e);
@@ -41,6 +42,20 @@ public class Game {
 			}
 			
 		}
+	}
+	
+	// Removes the given entity from the list so it will no longer exist
+	public static void destroyEntity(Entity e)
+	{
+		entities.remove(e);
+		grid.getTile(e.coords).setState(Tile.State.EMPTY);
+		
+	}
+	
+	// Sorts the entities arraylist based on speed
+	public static void sortEntities()
+	{
+		Collections.sort(entities); // sort based on speed
 	}
 	
 	private static void init()
