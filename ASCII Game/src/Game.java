@@ -27,7 +27,7 @@ public class Game {
 		Grid grid = new Grid(8, 8);
 		grid.randomize();
 		entities.add(new Player(grid, 3, 3));
-		//entities.add(new Enemy(grid, 2, 2));
+		entities.add(new Enemy(grid, 2, 2));
 		
 		
 		while (!playerDead)

@@ -24,7 +24,7 @@ public abstract class Entity implements Comparable<Entity> {
 	@Override
 	public int compareTo(Entity what)
 	{
-		return speed - what.speed;
+		return what.speed - speed;
 	}
 	
 	public void move(int rows, int cols)
