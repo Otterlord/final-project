@@ -3,6 +3,7 @@ public class Player extends Entity	{
 	public Player(Grid grid, int row, int col)
 	{
 		super(grid, row, col, Tile.State.PLAYER);
+		this.speed = 1;
 	}
 	
 	@Override

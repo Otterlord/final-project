@@ -1,8 +1,9 @@
-public abstract class Entity {
+public abstract class Entity implements Comparable<Entity> {
 	protected Vector2 coords;
 	
 	protected Grid grid;
 	private Tile.State myState;
+	protected int speed; // for the turn order
 	
 	public Entity(Grid grid, int row, int col, Tile.State state)
 	{
@@ -11,6 +12,19 @@ public abstract class Entity {
 		coords = new Vector2(col, row);
 		grid.getTile(row, col).setState(Tile.State.EMPTY); // clear space for entity
 		teleportToTile(row, col);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return myState + " of speed: " + speed + " at position " + coords;
+	}
+	
+	// For sorting based on speed
+	@Override
+	public int compareTo(Entity what)
+	{
+		return speed - what.speed;
 	}
 	
 	public void move(int rows, int cols)
@@ -68,16 +82,21 @@ public abstract class Entity {
 	}
 	
 	// Returns true if both sides are blocked
-	protected boolean surrounded(Vector2 dir) 
+	protected boolean solidBlock(Vector2 dir) 
 	{
 		try
 		{
-			return (grid.getTile(coords.add(dir)).isSolid() && grid.getTile(coords.add(dir.reversed())).isSolid()); // return true if both sides are solid
+			return (grid.getTile(coords.add(dir)).isSolid()); // return true if solid in current trajectory
 		}
 		catch (ArrayIndexOutOfBoundsException a) // if out of bounds, then we are definitely surrounded
 		{
 			return true;
 		}
+	}
+	
+	protected boolean surrounded(Vector2 dir)
+	{
+		return (solidBlock(dir) && solidBlock(dir.reversed()));
 	}
 	
 	// Returns the direction of the wall relative to current position
@@ -90,7 +109,7 @@ public abstract class Entity {
 	{
 		System.out.println("Destroying object finish writing htis mehthods");
 		grid.getTile(coords).setState(Tile.State.EMPTY); // remove graphical representation of object
-		// remove object from
+		// remove object from list
 		
 	}
 

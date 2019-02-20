@@ -5,6 +5,7 @@ public class Bomb extends Entity {
 
 	public Bomb(Grid grid, int row, int col) {
 		super(grid, row, col, Tile.State.BOMB);
+		this.speed = 2;
 	}
 
 	@Override

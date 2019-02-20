@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,10 +8,10 @@ public class Game {
 	public static Random random;
 	
 	public static boolean playerDead = false;
+	public static ArrayList<Entity> entities; // holds all the entities other than the player
 	
 	public static void main(String[] args)
 	{
-		
 		init();
 		printIntro();
 		
@@ -24,17 +26,19 @@ public class Game {
 		
 		Grid grid = new Grid(8, 8);
 		grid.randomize();
-		Player player = new Player(grid, 3, 3);
-		Enemy enemy = new Enemy(grid, 2, 2);
-		Enemy sec = new Enemy(grid, 2, 3);
+		entities.add(new Player(grid, 3, 3));
+		//entities.add(new Enemy(grid, 2, 2));
+		
 		
 		while (!playerDead)
 		{
-			player.doTurn();
-			if (playerDead) return; // if player dies after their turn, quit
-			enemy.doTurn();
-			sec.doTurn();
-			//player.doTurn();
+			
+			Collections.sort(entities); // sort based on speed
+			for (Entity e : entities)
+			{
+				System.out.println(e);
+				e.doTurn();
+			}
 			
 		}
 	}
@@ -43,6 +47,7 @@ public class Game {
 	{
 		scanner = new Scanner(System.in);
 		random = new Random();
+		entities = new ArrayList<Entity>();
 	}
 	
 	private static void printIntro()
