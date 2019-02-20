@@ -8,6 +8,7 @@ public class Game {
 	public static Random random;
 	
 	public static boolean playerDead = false;
+	private static boolean sort = false;
 	public static ArrayList<Entity> entities; // holds all the entities other than the player
 	
 	private static Grid grid;
@@ -19,6 +20,12 @@ public class Game {
 		
 		gameLoop();
 		System.out.println("Player surrounded!!!");
+	}
+	
+	// Flags that we should re-sort entities this turn
+	public static void updateEntities()
+	{
+		sort = true;
 	}
 
 	// Main game loop
@@ -39,6 +46,8 @@ public class Game {
 			{
 				System.out.println(e);
 				e.doTurn();
+				if (sort) sortEntities();
+				sort = false; // reset sort
 			}
 			
 		}
