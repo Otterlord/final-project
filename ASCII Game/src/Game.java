@@ -12,6 +12,7 @@ public class Game {
 	public static ArrayList<Entity> entities; // holds all the entities other than the player
 	
 	private static Grid grid;
+	private static ArrayList<Entity> removeQueue;
 	
 	public static void main(String[] args)
 	{
@@ -37,26 +38,31 @@ public class Game {
 		grid.randomize();
 		entities.add(new Player(grid, 3, 3));
 		entities.add(new Enemy(grid, 2, 2));
+		entities.add(new Bomb(grid, 3, 2));
 		
 		sortEntities();
 		
 		while (!playerDead)
 		{
+			// Clear the queue so we won't remove things that have already been removed
+			removeQueue.clear();
+			
 			for (Entity e : entities)
 			{
-				System.out.println(e);
 				e.doTurn();
 				if (sort) sortEntities();
 				sort = false; // reset sort
 			}
+			entities.removeAll(removeQueue);
 			
 		}
 	}
 	
-	// Removes the given entity from the list so it will no longer exist
+	// Adds the given entity to remove queue -- so it will be removed at the end of the turn
 	public static void destroyEntity(Entity e)
 	{
-		entities.remove(e);
+		//entities.remove(e);
+		removeQueue.add(e);
 		grid.getTile(e.coords).setState(Tile.State.EMPTY);
 		
 	}
@@ -72,6 +78,7 @@ public class Game {
 		scanner = new Scanner(System.in);
 		random = new Random();
 		entities = new ArrayList<Entity>();
+		removeQueue = new ArrayList<Entity>();
 	}
 	
 	private static void printIntro()
