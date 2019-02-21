@@ -22,6 +22,11 @@ public class Tile {
 		this.state = state;
 	}
 	
+	public State getState()
+	{
+		return state;
+	}
+	
 	public boolean isSolid()
 	{
 		if (state == state.EMPTY) return false;

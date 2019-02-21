@@ -22,6 +22,27 @@
 	{
 		System.out.println("в00м!!!!");
 		this.destroy();
+		
+		grid.getTile(coords.add(Vector2.up)).setState(Tile.State.EMPTY);
+		grid.getTile(coords.add(Vector2.down)).setState(Tile.State.EMPTY);
+		grid.getTile(coords.add(Vector2.right)).setState(Tile.State.EMPTY);
+		grid.getTile(coords.add(Vector2.left)).setState(Tile.State.EMPTY);
+	}
+	
+	private void explodeTile(Vector2 coords)
+	{
+		Tile tile = grid.getTile(coords);
+		if (tile.getState() == Tile.State.WALL || tile.getState() == Tile.State.ENEMY)
+		{
+			tile.setState(Tile.State.EMPTY);
+			grid.draw();
+		}
+		if (tile.getState() == Tile.State.PLAYER)
+		{
+			System.out.println("You were killed in the explosion");
+			grid.draw();
+			Game.killPlayer();
+		}
 	}
 
 }

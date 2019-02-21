@@ -13,7 +13,7 @@ public class Player extends Entity	{
 		
 		if (surrounded(Vector2.right) && surrounded(Vector2.up)) 
 		{
-			Game.playerDead = true;
+			Game.killPlayer();
 			return;
 		}
 		

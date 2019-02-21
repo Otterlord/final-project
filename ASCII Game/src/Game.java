@@ -7,7 +7,7 @@ public class Game {
 	public static Scanner scanner;
 	public static Random random;
 	
-	public static boolean playerDead = false;
+	private static boolean playerDead = false;
 	private static boolean sort = false;
 	public static ArrayList<Entity> entities; // holds all the entities other than the player
 	
@@ -28,6 +28,11 @@ public class Game {
 	{
 		sort = true;
 	}
+	
+	public static void killPlayer()
+	{
+		playerDead = true;
+	}
 
 	// Main game loop
 	private static void gameLoop()
@@ -46,13 +51,15 @@ public class Game {
 		{
 			// Clear the queue so we won't remove things that have already been removed
 			removeQueue.clear();
-			
+
 			for (Entity e : entities)
 			{
 				e.doTurn();
+				if (playerDead) return;
 				if (sort) sortEntities();
 				sort = false; // reset sort
 			}
+		
 			entities.removeAll(removeQueue);
 			
 		}
@@ -90,6 +97,12 @@ public class Game {
 		System.out.println("'this sucsk, fudge u' sedc darren, adn hesd vowed to get revenge on the guy who planed the bomb");
 		System.out.println("howed er, b4 daren culd win and stuffs, he ded");
 		System.out.println("3nter u");
+		System.out.println();
+		System.out.println("------------------------------------------------------------------");
+		System.out.println("INSTRUCTIONS");
+		System.out.println("w = up, s = down, d = right, a = left");
+		System.out.println("B = bomb, W = wall, O = enemy, - = blank tile, Ü = you");
+		System.out.print("\n\n");
 	}
 
 }
